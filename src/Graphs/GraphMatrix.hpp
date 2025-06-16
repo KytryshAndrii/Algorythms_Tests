@@ -4,7 +4,7 @@
 #include "../VektorImpl/Vektor.hpp"
 #include <iostream>
 
-class GraphMatrix {
+class GraphMatrix : public IGraph {
     int vertexCount;
     int edgeLimit;
     int currentEdge;
@@ -34,34 +34,42 @@ public:
         }
     }
 
-    void addEdge(int u, int v, int weight) {
+    void addEdge(int u, int v, int weight) override {
         if (currentEdge >= edgeLimit) {
-            std::cerr << "Edge limit reached!\n";
+            std::cerr << "[GraphMatrix] Edge limit reached!\n";
             return;
         }
 
-        matrix[u][currentEdge] = -1;
-        matrix[v][currentEdge] = 1;
+        matrix[u][currentEdge] = 1;
+        matrix[v][currentEdge] = -1;
         from[currentEdge] = u;
         dest[currentEdge] = v;
         weights[currentEdge] = weight;
         currentEdge++;
     }
 
-    void display() const {
+    void display() const override {
         std::cout << "Incidence Matrix (" << vertexCount << " x " << currentEdge << "):\n";
+
+        std::cout << "\t";
+        for (int j = 0; j < currentEdge; ++j) {
+            std::cout << "v" << j << "\t";
+        }
+        std::cout << "\n";
+
         for (int i = 0; i < vertexCount; ++i) {
+            std::cout << "e" << i << "\t";
             for (int j = 0; j < currentEdge; ++j) {
-                std::cout << matrix[i][j] << " ";
+                std::cout << matrix[i][j] << "\t";
             }
             std::cout << std::endl;
         }
     }
 
-    int getVertexCount() const {
+    int getVertexCount() const override {
         return vertexCount;
     }
-    int getEdgeCount() const {
+    int getEdgeCount() const override {
         return currentEdge;
     }
 };

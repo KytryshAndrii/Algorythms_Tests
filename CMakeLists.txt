@@ -17,7 +17,10 @@ add_executable(AIZO_C++
         src/Manager/TimerManager.hpp
         src/Graphs/GraphMatrix.hpp
         src/Graphs/GraphList.hpp
-        test.cpp)
+        test.cpp
+        src/FileIO/GraphFileIO.hpp
+        src/common/GraphRepresentingShape.hpp
+        src/Graphs/IGraph.hpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     target_link_options(AIZO_C++ PRIVATE
