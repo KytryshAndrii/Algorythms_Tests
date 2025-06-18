@@ -2,7 +2,7 @@
 #define SORTMANAGER_H
 
 #include "../VektorImpl/Vektor.hpp"
-#include "../RandomGenerator/RandomGenerator.hpp"
+#include "../RandomGenerator/RandomNumbersToSortGenerator.hpp"
 #include "../SortAlgorithms/SortAlgorithms.hpp"
 #include "../SortAlgorithms/AlgorithmsUtils.hpp"
 #include "../FileIO/FileIO.hpp"

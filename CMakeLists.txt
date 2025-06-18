@@ -9,18 +9,21 @@ add_executable(AIZO_C++
         src/Timer/Timer.hpp
         src/FileIO/FileIO.hpp
         src/VektorImpl/Vektor.hpp
-        src/RandomGenerator/RandomGenerator.hpp
+        src/RandomGenerator/RandomNumbersToSortGenerator.hpp
         src/SortAlgorithms/SortAlgorithms.hpp
         src/SortAlgorithms/AlgorithmsUtils.hpp
         src/GUI/HelpMessage.hpp
         src/Manager/SortManager.hpp
         src/Manager/TimerManager.hpp
-        src/Graphs/GraphMatrix.hpp
-        src/Graphs/GraphList.hpp
+        src/GraphsImpl/GraphMatrix.hpp
+        src/GraphsImpl/GraphList.hpp
         test.cpp
         src/FileIO/GraphFileIO.hpp
         src/common/GraphRepresentingShape.hpp
-        src/Graphs/IGraph.hpp)
+        src/GraphsImpl/IGraph.hpp
+        src/RandomGenerator/RandomGraphGenerator.hpp
+        src/common/GraphFactory.hpp
+        src/common/EdgeTripple.hpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     target_link_options(AIZO_C++ PRIVATE

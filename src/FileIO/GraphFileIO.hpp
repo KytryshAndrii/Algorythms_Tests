@@ -4,10 +4,12 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+
+#include "../common/GraphFactory.hpp"
 #include "../VektorImpl/Vektor.hpp"
-#include "../Graphs/GraphList.hpp"
-#include "../Graphs/GraphMatrix.hpp"
+#include "../GraphsImpl/GraphList.hpp"
 #include "../common/GraphRepresentingShape.hpp"
+#include "../RandomGenerator/RandomGraphGenerator.hpp"
 
 class GraphIO {
 public:
@@ -36,6 +38,20 @@ public:
         }
 
         return graph;
+    }
+
+    static void writeGraphToFile(const std::string& filename, const Vektor<EdgeTriple>& edges, int vertexCount) {
+        std::ofstream ofs(filename);
+        if (!ofs) {
+            std::cerr << "[ERROR] Cannot open file to write graph: " << filename << std::endl;
+            return;
+        }
+
+        ofs << edges.size() << " " << vertexCount << "\n";
+        for (int i = 0; i < edges.size(); ++i) {
+            ofs << edges[i].from << " " << edges[i].to << " " << edges[i].weight << "\n";
+        }
+        ofs.close();
     }
 
     static void appendGraphHistoryEntry(
@@ -196,16 +212,6 @@ private:
     //     }
     //     return true;
     // }
-    static IGraph* createGraphInstance(GraphRepresentingShape type, int vertices, int edges) {
-        if (type == LIST) {
-            return new GraphList(vertices);
-        }
-        if (type == MATRIX) {
-            return new GraphMatrix(vertices, edges);
-        }
-        printError("[ERROR] Unknown graph type");
-        return nullptr;
-    }
 
 };
 

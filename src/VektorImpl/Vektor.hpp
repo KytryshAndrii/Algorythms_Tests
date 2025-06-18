@@ -14,6 +14,7 @@ public:
 
     void push_back(const T& value);
     int size() const;
+    void removeAt(int index);
     T& operator[](int index);
     const T& operator[](int index) const;
 
@@ -104,5 +105,16 @@ void Vektor<T>::resize(int newCapacity) {
     delete[] data;
     data = newData;
 }
+
+template <typename T>
+void Vektor<T>::removeAt(int index) {
+    if (index < 0 || index >= count)
+        throw std::out_of_range("Index out of range in removeAt");
+    for (int i = index; i < count - 1; ++i) {
+        data[i] = data[i + 1];
+    }
+    --count;
+}
+
 
 #endif

@@ -7,7 +7,7 @@
 
 #include "../SortAlgorithms/SortAlgorithms.hpp"
 
-class RandomGenerator {
+class RandomNumbersToSortGenerator {
 public:
 
     /**
