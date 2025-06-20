@@ -23,7 +23,12 @@ add_executable(AIZO_C++
         src/GraphsImpl/IGraph.hpp
         src/RandomGenerator/RandomGraphGenerator.hpp
         src/common/GraphFactory.hpp
-        src/common/EdgeTripple.hpp)
+        src/common/EdgeTripple.hpp
+        src/GraphsAlgorithms/MSTProblem/KruskalList.hpp
+        src/GraphsAlgorithms/MSTProblem/KruskalMatrix.hpp
+        src/GraphsAlgorithms/MSTProblem/PrimList.hpp
+        src/GraphsAlgorithms/MSTProblem/PrimMatrix.hpp
+        src/common/UnionJoinSet.hpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     target_link_options(AIZO_C++ PRIVATE

@@ -13,6 +13,12 @@
 
 class GraphIO {
 public:
+
+    /**
+   * Reads a graph from a file and creates an instance of the selected graph type.
+   * Performs basic format and value validation.
+   * Time complexity: O(E) for edge reading, O(V + E) for validation.
+   */
     static IGraph* readGraph(const std::string& filename, GraphRepresentingShape type) {
         int declaredEdges = 0;
         int declaredVertices = 0;
@@ -40,6 +46,11 @@ public:
         return graph;
     }
 
+    /**
+    * Writes a vector of edges and vertex count into a text file.
+    * Format: first line "E V", followed by "from to weight" per edge.
+    * Time complexity: O(E)
+    */
     static void writeGraphToFile(const std::string& filename, const Vektor<EdgeTriple>& edges, int vertexCount) {
         std::ofstream ofs(filename);
         if (!ofs) {
@@ -54,6 +65,9 @@ public:
         ofs.close();
     }
 
+    /**
+    * Appends a single test run entry to the graph history CSV-style log.
+    */
     static void appendGraphHistoryEntry(
         const std::string& filename,
         const std::string& timeStamp,
@@ -85,6 +99,10 @@ public:
         ofs.close();
     }
 
+    /**
+     * Appends a summary row to the summary results file.
+     * Includes statistics like avg, median, min/max for timing and result values.
+     */
     static void appendGraphSummaryEntry(
         const std::string& summaryFile,
         const std::string& timeStamp,
@@ -126,6 +144,11 @@ public:
 
 
 private:
+
+    /**
+    * Performs full validation: header format, edge data, index bounds.
+    * Time complexity: O(E + V)
+    */
     static bool isValidGraphFile(std::ifstream& file, int& edgeCount, int& vertexCount) {
 
         if (!file.is_open()) {
@@ -138,6 +161,10 @@ private:
         return validateEdgeData(file, edgeCount, vertexCount);
     }
 
+    /**
+     * Reads and validates the header line "<edgeCount> <vertexCount>".
+     * Returns true only if both values are positive integers.
+     */
     static bool readHeader(std::ifstream& file, int& edgeCount, int& vertexCount) {
         std::string line;
         if (!std::getline(file, line)) {
@@ -159,6 +186,10 @@ private:
         return true;
     }
 
+    /**
+    * Validates edge lines: correct number, valid vertex indices, and proper formatting.
+    * Also ensures all vertices are referenced at least once.
+    */
     static bool validateEdgeData(std::ifstream& file, int declaredEdges, int declaredVertices) {
         Vektor<bool> vertexPresent(declaredVertices);
         for (int i = 0; i < declaredVertices; ++i) vertexPresent[i] = false;
@@ -190,6 +221,10 @@ private:
         return true;
     }
 
+    /**
+    * Parses a line with format "from to weight" into integers.
+    * Returns false if parsing fails.
+    */
     static bool parseEdgeLine(const std::string& line, int& from, int& to, int& weight) {
         std::istringstream edgeStream(line);
         if (!(edgeStream >> from >> to >> weight)) {
@@ -199,20 +234,12 @@ private:
         return true;
     }
 
+    /**
+    * Prints a standard formatted error message.
+    */
     static void printError(const std::string& message) {
         std::cerr << "[ERROR] " << message << std::endl;
     }
-
-    // static bool isMissingEdges(const int declaredVertices, Vektor<bool> vertexPresent) {
-    //     for (int i = 0; i < declaredVertices - 1; i++) {
-    //         if (!vertexPresent[i]) {
-    //             printError("Missing vertex with index: " + std::to_string(i));
-    //             return false;
-    //         }
-    //     }
-    //     return true;
-    // }
-
 };
 
 #endif

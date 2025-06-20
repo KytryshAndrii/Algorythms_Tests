@@ -15,24 +15,43 @@ class RandomGraphGenerator {
     std::mt19937 rng;
 
 public:
+
+    /**
+     * Constructor seeds the RNG with current time.
+     */
     RandomGraphGenerator() {
         rng.seed(static_cast<unsigned>(time(nullptr)));
         std::cout << "[LOG] RandomGraphGenerator initialized with seed from time.\n";
     }
 
+    /**
+     * Generates a random graph with 25% density.
+     */
     Vektor<EdgeTriple> generateGraph25(int v) {
         std::cout << "[LOG] Generating graph with 25% density and " << v << " vertices.\n";
         return generateGraphWithDensity(v, 25.0);
     }
+
+    /**
+     * Generates a random graph with 50% density.
+     */
     Vektor<EdgeTriple> generateGraph50(int v) {
         std::cout << "[LOG] Generating graph with 50% density and " << v << " vertices.\n";
         return generateGraphWithDensity(v, 50.0);
     }
+
+    /**
+     * Generates a random graph with 99% density.
+     */
     Vektor<EdgeTriple> generateGraph99(int v) {
          std::cout << "[LOG] Generating graph with 99% density and " << v << " vertices.\n";
         return generateGraphWithDensity(v, 99.0);
     }
 
+    /**
+     * Generates a graph (with specific density) and inserts it into an IGraph structure.
+     * Time complexity: O(E), where E is target number of edges.
+     */
     IGraph* generateGraphInStructure(int v, double density, GraphRepresentingShape type) {
         std::cout << "[LOG] Generating graph with " << density << "% density and " << v << " vertices into structure.\n";
         Vektor<EdgeTriple> edges = generateGraphWithDensity(v, density);
@@ -52,8 +71,27 @@ public:
         return graph;
     }
 
+    /**
+    * Logs the actual density of a generated graph and compares it to the intended density.
+    */
+    static void logActualDensity(int vertexCount, int edgeCount, double targetDensity) {
+        int maxEdges = vertexCount * (vertexCount - 1) / 2;
+        double actualDensity = (100.0 * edgeCount) / maxEdges;
+        std::cout << "[LOG] Actual density: " << actualDensity << "%\n";
+
+        if (std::abs(actualDensity - targetDensity) > 1.0) {
+            std::cerr << "[WARNING] Density deviates from target: expected " << targetDensity
+                      << "% but got " << actualDensity << "%\n";
+        }
+    }
+
+
 
 private:
+
+    /**
+    * Returns a random vertex from 0 to n-1, optionally excluding one vertex.
+    */
     int getRandomVertex(int n, int exclude = -1) {
         std::uniform_int_distribution<int> dist(0, n - 1);
         int v;
@@ -63,12 +101,18 @@ private:
         return v;
     }
 
+    /**
+     * Returns a random edge weight in range [minW, maxW].
+     */
     int getRandomWeight(int minW = 0, int maxW = 100) {
         std::uniform_int_distribution<int> dist(minW, maxW);
         return dist(rng);
     }
 
-    bool edgeExists(const Vektor<std::pair<int, int>>& edgeList, int u, int v) {
+    /**
+    * Checks if an edge (u,v) or (v,u) already exists in edgeList.
+    */
+    static bool edgeExists(const Vektor<std::pair<int, int>>& edgeList, int u, int v) {
         int a = std::min(u, v);
         int b = std::max(u, v);
         for (int i = 0; i < edgeList.size(); ++i) {
@@ -79,10 +123,17 @@ private:
         return false;
     }
 
-    void addEdgeRecord(Vektor<std::pair<int, int>>& edgeList, int u, int v) {
+    /**
+     * Adds edge (u,v) to the seen set, ensuring consistent ordering.
+     */
+    static void addEdgeRecord(Vektor<std::pair<int, int>>& edgeList, int u, int v) {
         edgeList.push_back({std::min(u, v), std::max(u, v)});
     }
 
+    /**
+     * Generates a random spanning tree using randomized Prim-like logic.
+     * Ensures connectivity. Time complexity: O(V)
+     */
     Vektor<EdgeTriple> generateSpanningTree(int vertexCount) {
         std::cout << "[LOG] Generating spanning tree...\n";
         Vektor<EdgeTriple> edges;
@@ -119,6 +170,10 @@ private:
         return edges;
     }
 
+    /**
+     * Generates all unique possible undirected edges for a complete graph.
+     * Time complexity: O(V^2)
+     */
     Vektor<EdgeTriple> generateAllPossibleEdges(int vertexCount) {
         Vektor<EdgeTriple> allEdges;
         for (int u = 0; u < vertexCount; ++u) {
@@ -129,6 +184,12 @@ private:
         return allEdges;
     }
 
+    /**
+     * Generates a graph with desired density by:
+     * - creating a random spanning tree (to guarantee connectivity)
+     * - adding additional random edges until target density is met
+     * Time complexity: O(V + E + V^2) worst-case due to shuffle/search
+    */
     Vektor<EdgeTriple> generateGraphWithDensity(int vertexCount, double densityPercent) {
         int maxEdges = vertexCount * (vertexCount - 1) / 2;
         int targetEdgeCount = static_cast<int>(densityPercent * maxEdges / 100.0);
