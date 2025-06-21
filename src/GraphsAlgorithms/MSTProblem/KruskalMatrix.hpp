@@ -30,6 +30,14 @@ public:
         return mst;
     }
 
+    static std::string calculateMSTWeightAsString(const Vektor<EdgeTriple>& mst) {
+        int total = 0;
+        for (int i = 0; i < mst.size(); ++i) {
+            total += mst[i].weight;
+        }
+        return std::to_string(total);
+    }
+
     static void displayMST(const Vektor<EdgeTriple>& mst) {
         int total = 0;
         std::cout << "MST edges:\n";

@@ -52,6 +52,21 @@ public:
         return reconstructPaths(previous, distances, source);
     }
 
+    static std::string calculatePathWeightAsString(const Vektor<EdgeTriple>& paths, bool destination=false) {
+        if (paths.size() == 0) return "0";
+
+        int min = std::numeric_limits<int>::max();
+        int max = std::numeric_limits<int>::min();
+
+        for (int i = 0; i < paths.size(); ++i) {
+            if (paths[i].weight < min) min = paths[i].weight;
+            if (paths[i].weight > max) max = paths[i].weight;
+        }
+
+        if (min == max || destination) return std::to_string(max);
+        return "[" + std::to_string(min) + " - " + std::to_string(max) + "]";
+    }
+
     /**
      * Displays all shortest paths from the given source vertex.
      */

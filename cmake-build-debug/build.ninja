@@ -49,8 +49,8 @@ cmake_ninja_workdir = C$:/Users/User/Documents/PWR/4sem/AIZO/Projekt_Mrozo/AIZO_
 
 build cmake_object_order_depends_target_AIZO_C++: phony || .
 
-build CMakeFiles/AIZO_C++.dir/main.cpp.obj: CXX_COMPILER__AIZO_C.2b.2b_unscanned_Debug C$:/Users/User/Documents/PWR/4sem/AIZO/Projekt_Mrozo/AIZO_C++/main.cpp || cmake_object_order_depends_target_AIZO_C++
-  DEP_FILE = CMakeFiles\AIZO_C++.dir\main.cpp.obj.d
+build CMakeFiles/AIZO_C++.dir/test.cpp.obj: CXX_COMPILER__AIZO_C.2b.2b_unscanned_Debug C$:/Users/User/Documents/PWR/4sem/AIZO/Projekt_Mrozo/AIZO_C++/test.cpp || cmake_object_order_depends_target_AIZO_C++
+  DEP_FILE = CMakeFiles\AIZO_C++.dir\test.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\AIZO_C++.dir
   OBJECT_FILE_DIR = CMakeFiles\AIZO_C++.dir
@@ -61,12 +61,6 @@ build CMakeFiles/AIZO_C++.dir/src/Timer/Timer.cpp.obj: CXX_COMPILER__AIZO_C.2b.2
   OBJECT_DIR = CMakeFiles\AIZO_C++.dir
   OBJECT_FILE_DIR = CMakeFiles\AIZO_C++.dir\src\Timer
 
-build CMakeFiles/AIZO_C++.dir/test.cpp.obj: CXX_COMPILER__AIZO_C.2b.2b_unscanned_Debug C$:/Users/User/Documents/PWR/4sem/AIZO/Projekt_Mrozo/AIZO_C++/test.cpp || cmake_object_order_depends_target_AIZO_C++
-  DEP_FILE = CMakeFiles\AIZO_C++.dir\test.cpp.obj.d
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\AIZO_C++.dir
-  OBJECT_FILE_DIR = CMakeFiles\AIZO_C++.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target AIZO_C++
@@ -75,7 +69,7 @@ build CMakeFiles/AIZO_C++.dir/test.cpp.obj: CXX_COMPILER__AIZO_C.2b.2b_unscanned
 #############################################
 # Link the executable AIZO_C++.exe
 
-build AIZO_C++.exe: CXX_EXECUTABLE_LINKER__AIZO_C.2b.2b_Debug CMakeFiles/AIZO_C++.dir/main.cpp.obj CMakeFiles/AIZO_C++.dir/src/Timer/Timer.cpp.obj CMakeFiles/AIZO_C++.dir/test.cpp.obj
+build AIZO_C++.exe: CXX_EXECUTABLE_LINKER__AIZO_C.2b.2b_Debug CMakeFiles/AIZO_C++.dir/test.cpp.obj CMakeFiles/AIZO_C++.dir/src/Timer/Timer.cpp.obj
   FLAGS = -g
   LINK_FLAGS = -static -static-libgcc -static-libstdc++ -pthread
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32

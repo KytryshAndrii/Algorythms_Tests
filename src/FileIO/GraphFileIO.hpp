@@ -1,6 +1,7 @@
 #ifndef GRAPH_IO_HPP
 #define GRAPH_IO_HPP
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -40,7 +41,9 @@ public:
         for (int i = 0; i < declaredEdges; ++i) {
             int from, to, weight;
             file >> from >> to >> weight;
-            graph->addEdge(from, to, weight);
+            if (from != to || to != from) {
+                graph->addEdge(from, to, weight);
+            }
         }
 
         return graph;
@@ -72,29 +75,32 @@ public:
         const std::string& filename,
         const std::string& timeStamp,
         const std::string& algorithmName,
-        const std::string& graphType,
+        const GraphRepresentingShape& graphType,
         int vertexCount,
         int edgeCount,
         int solveTimeMs,
         int repetitionNumber,
         const std::string& resultPath,
-        int resultValue
+        const std::string& resultValue
     ) {
+        create_directories(std::filesystem::path(filename).parent_path());
+
         std::ofstream ofs(filename, std::ios::app);
         if (!ofs) {
             std::cerr << "[ERROR] Cannot open history file: " << filename << std::endl;
             return;
         }
+        std::string graphTypeStr = (graphType == LIST) ? "LIST" : "MATRIX";
 
         ofs << timeStamp << ';'
             << algorithmName << ';'
-            << graphType << ';'
+            << graphTypeStr << ';'
             << vertexCount << ';'
             << edgeCount << ';'
-            << solveTimeMs << ';'
             << repetitionNumber << ';'
             << resultPath << ';'
-            << resultValue << '\n';
+            << resultValue << ';'
+            << solveTimeMs << '\n';
 
         ofs.close();
     }
@@ -104,44 +110,41 @@ public:
      * Includes statistics like avg, median, min/max for timing and result values.
      */
     static void appendGraphSummaryEntry(
-        const std::string& summaryFile,
-        const std::string& timeStamp,
-        const std::string& algorithmName,
-        const std::string& graphType,
-        int vertexCount,
-        int edgeCount,
-        int repetitions,
-        int minTimeMs,
-        int maxTimeMs,
-        double avgTimeMs,
-        double medianTimeMs,
-        int minResult,
-        int maxResult
-    ) {
+       const std::string& summaryFile,
+       const std::string& timeStamp,
+       const std::string& algorithmName,
+       const GraphRepresentingShape& graphType,
+       int vertexCount,
+       int edgeCount,
+       int repetitions,
+       int minTimeMs,
+       int maxTimeMs,
+       double avgTimeMs,
+       double medianTimeMs
+   ) {
+        create_directories(std::filesystem::path(summaryFile).parent_path());
+
         std::ofstream ofs(summaryFile, std::ios::app);
         if (!ofs) {
-            std::cerr << "[ERROR] Cannot open summary file: " << summaryFile << std::endl;
+            std::cerr << "[ERROR] Cannot open history file: " << summaryFile << std::endl;
             return;
         }
 
-        // Format: timestamp;algorithm;graphType;V;E;reps;min;max;avg;med;[minResult,maxResult]
+        std::string graphTypeStr = (graphType == LIST) ? "LIST" : "MATRIX";
+
         ofs << timeStamp << ';'
             << algorithmName << ';'
-            << graphType << ';'
+            << graphTypeStr << ';'
             << vertexCount << ';'
             << edgeCount << ';'
             << repetitions << ';'
             << minTimeMs << ';'
             << maxTimeMs << ';'
             << avgTimeMs << ';'
-            << medianTimeMs << ';'
-            << '[' << minResult << ',' << maxResult << ']'
-            << '\n';
+            << medianTimeMs << ';' << '\n';
 
         ofs.close();
     }
-
-
 
 private:
 

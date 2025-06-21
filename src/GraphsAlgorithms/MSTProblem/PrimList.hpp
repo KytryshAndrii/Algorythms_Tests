@@ -27,11 +27,20 @@ public:
                 mst.push_back(bestEdge);
                 inMST[bestEdge.to] = true;
             } else {
+                std::cerr << "[PRIM] Nie znaleziono kolejnej krawędzi — graf nie jest spójny?\n";
                 break;
             }
         }
 
         return mst;
+    }
+
+    static std::string calculateMSTWeightAsString(const Vektor<EdgeTriple>& mst) {
+        int totalWeight = 0;
+        for (int i = 0; i < mst.size(); ++i) {
+            totalWeight += mst[i].weight;
+        }
+        return std::to_string(totalWeight);
     }
 
     /**
@@ -77,27 +86,28 @@ private:
                 int v = neighbors[i].dest;
                 int weight = neighbors[i].weight;
 
-                int a = std::min(u, v);
-                int b = std::max(u, v);
-
-                bool alreadySeen = false;
-                for (int j = 0; j < seenPairs.size(); ++j) {
-                    if (seenPairs[j].first == a && seenPairs[j].second == b) {
-                        alreadySeen = true;
-                        break;
-                    }
-                }
-
-                if (alreadySeen) continue;
-                seenPairs.push_back({a, b});
+                if (v == u) continue; // pomijaj pętle
 
                 if (!inMST[v] && weight < minWeight) {
                     bestEdge = {u, v, weight};
                     minWeight = weight;
                 }
             }
-        }
+            for (int v = 0; v < vertexQuantity; ++v) {
+                if (v == u || inMST[v]) continue;
 
+                const Vektor<Edge>& incoming = graph->getNeighbors(v);
+                for (int j = 0; j < incoming.size(); ++j) {
+                    if (incoming[j].dest == u) {
+                        int weight = incoming[j].weight;
+                        if (weight < minWeight) {
+                            bestEdge = {u, v, weight};  // from = u, to = v
+                            minWeight = weight;
+                        }
+                    }
+                }
+            }
+        }
         return bestEdge;
     }
 };

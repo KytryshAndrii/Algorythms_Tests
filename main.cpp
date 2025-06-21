@@ -1,7 +1,6 @@
 // #include <iostream>
 // #include <cstring>
 // #include <cstdlib>
-// #include "./src/RandomGenerator/RandomGenerator.hpp"
 // #include "./src/Manager/SortManager.hpp"
 // #include "./src/GUI/HelpMessage.hpp"
 //

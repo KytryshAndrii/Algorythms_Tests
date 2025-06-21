@@ -50,6 +50,21 @@ public:
         return reconstructPaths(previous, distances);
     }
 
+    static std::string calculatePathWeightAsString(const Vektor<EdgeTriple>& paths, bool destination=false) {
+        if (paths.size() == 0) return "0";
+
+        int min = std::numeric_limits<int>::max();
+        int max = std::numeric_limits<int>::min();
+
+        for (int i = 0; i < paths.size(); ++i) {
+            if (paths[i].weight < min) min = paths[i].weight;
+            if (paths[i].weight > max) max = paths[i].weight;
+        }
+
+        if (min == max || destination) return std::to_string(max);
+        return "[" + std::to_string(min) + " - " + std::to_string(max) + "]";
+    }
+
     /**
      * Displays all shortest paths computed using Dijkstra's algorithm.
      */
@@ -118,16 +133,17 @@ private:
     * Reconstructs the path from source to destination only.
     * Time complexity: O(V)
     */
-    static Vektor<EdgeTriple> reconstructSinglePath(const Vektor<int>& previous, const Vektor<int>& distances, int source, int dest) {
+    static Vektor<EdgeTriple> reconstructSinglePath(const Vektor<int>& parents, const Vektor<int>& distances, int source, int dest) {
         Vektor<EdgeTriple> result;
         if (distances[dest] == std::numeric_limits<int>::max()) return result;
         int current = dest;
-        while (current != source && previous[current] != -1) {
-            result.push_back({previous[current], current, distances[current]});
-            current = previous[current];
+        while (current != source && parents[current] != -1) {
+            result.push_back({parents[current], current, distances[current]});
+            current = parents[current];
         }
         return result;
     }
+
 
 };
 

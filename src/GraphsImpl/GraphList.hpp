@@ -36,6 +36,8 @@ public:
      */
     void addEdge(int from, int to, int weight) override {
         Edge edge = {to, weight};
+        if (from == to)
+            return;
         adjList[from].push_back(edge);
         edgeCount++;
     }

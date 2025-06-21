@@ -46,6 +46,7 @@ public:
     * Time complexity: O(1)
     */
     void addEdge(const int u, const int v, const int weight) override {
+        if (u == v) return;
         if (currentEdge >= edgeLimit) {
             std::cerr << "[GraphMatrix] Edge limit reached!\n";
             return;

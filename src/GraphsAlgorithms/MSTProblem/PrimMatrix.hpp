@@ -37,6 +37,14 @@ public:
         return mst;
     }
 
+    static std::string calculateMSTWeightAsString(const Vektor<EdgeTriple>& mst) {
+        int totalWeight = 0;
+        for (int i = 0; i < mst.size(); ++i) {
+            totalWeight += mst[i].weight;
+        }
+        return std::to_string(totalWeight);
+    }
+
     /**
    * Displays the edges in the MST and their total weight.
    */

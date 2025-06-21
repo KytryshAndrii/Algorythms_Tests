@@ -42,7 +42,7 @@ public:
     /// Generates random data of specified size and range, sorts it, and outputs the result.
     template <typename T>
     static void benchmarkMode(const char* algFlag, int data_length, T minVal, T maxVal, const char* outputFile) {
-        Vektor<T> data = RandomGenerator::generateDataToSort<T>(data_length, minVal, maxVal);
+        Vektor<T> data = RandomNumbersToSortGenerator::generateDataToSort<T>(data_length, minVal, maxVal);
 
         std::cout << "Chosen algorithm: " << getAlgorithmName(algFlag) << std::endl;
         std::cout << "Chosen data type: " << getDataTypeName<T>() << std::endl;
@@ -217,14 +217,14 @@ private:
     template<typename T>
     static Vektor<T> selectDataByMode(const char* dataModeFlag, int dataLemgth, T minimum, T maximum) {
         if (std::strcmp(dataModeFlag, "--asc") == 0)
-            return RandomGenerator::generateSortedData<T>(dataLemgth,  minimum, maximum);
+            return RandomNumbersToSortGenerator::generateSortedData<T>(dataLemgth,  minimum, maximum);
         if (std::strcmp(dataModeFlag, "--desc") == 0)
-            return RandomGenerator::generateReverseSortedData<T>(dataLemgth,  minimum, maximum);
+            return RandomNumbersToSortGenerator::generateReverseSortedData<T>(dataLemgth,  minimum, maximum);
         if (std::strcmp(dataModeFlag, "--33") == 0)
-            return RandomGenerator::generate33PercentSortedData<T>(dataLemgth,  minimum, maximum);
+            return RandomNumbersToSortGenerator::generate33PercentSortedData<T>(dataLemgth,  minimum, maximum);
         if (std::strcmp(dataModeFlag, "--66") == 0)
-            return RandomGenerator::generate66PercentSortedData<T>(dataLemgth,  minimum, maximum);
-        return RandomGenerator::generateDataToSort<T>(dataLemgth,  minimum, maximum);
+            return RandomNumbersToSortGenerator::generate66PercentSortedData<T>(dataLemgth,  minimum, maximum);
+        return RandomNumbersToSortGenerator::generateDataToSort<T>(dataLemgth,  minimum, maximum);
     }
 
     /// Returns a human-readable name for the given sort order flag.

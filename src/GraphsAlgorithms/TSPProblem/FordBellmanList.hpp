@@ -48,8 +48,23 @@ public:
         }
 
         if(destination != -1)
-            return reconstructSinglePath(previous, distances, source, destination)
+            return reconstructSinglePath(previous, distances, source, destination);
         return reconstructAllPaths(previous, distances, source);
+    }
+
+    static std::string calculatePathWeightAsString(const Vektor<EdgeTriple>& paths, bool destination=false) {
+        if (paths.size() == 0) return "0";
+        if (paths.size() == 1) return std::to_string(paths[0].weight);
+
+        int minW = paths[0].weight;
+        int maxW = paths[0].weight;
+        for (int i = 1; i < paths.size(); ++i) {
+            if (paths[i].weight < minW) minW = paths[i].weight;
+            if (paths[i].weight > maxW) maxW = paths[i].weight;
+        }
+
+        if (minW == maxW || destination) return std::to_string(maxW);
+        return "[" + std::to_string(minW) + " - " + std::to_string(maxW) + "]";
     }
 
     static void displayShortestPaths(const Vektor<EdgeTriple>& paths, int source) {

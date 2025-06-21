@@ -4,7 +4,8 @@ project(AIZO_C++)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(AIZO_C++
-        main.cpp
+#        main.cpp
+        test.cpp
         src/Timer/Timer.cpp
         src/Timer/Timer.hpp
         src/FileIO/FileIO.hpp
@@ -17,7 +18,6 @@ add_executable(AIZO_C++
         src/Manager/TimerManager.hpp
         src/GraphsImpl/GraphMatrix.hpp
         src/GraphsImpl/GraphList.hpp
-        test.cpp
         src/FileIO/GraphFileIO.hpp
         src/common/GraphRepresentingShape.hpp
         src/GraphsImpl/IGraph.hpp
@@ -33,7 +33,8 @@ add_executable(AIZO_C++
         src/GraphsAlgorithms/TSPProblem/DijkstraMatrix.hpp
         src/HeapImpl/MinHeap.hpp
         src/GraphsAlgorithms/TSPProblem/FordBellmanMatrix.hpp
-        src/GraphsAlgorithms/TSPProblem/FordBellmanList.hpp)
+        src/GraphsAlgorithms/TSPProblem/FordBellmanList.hpp
+        src/Manager/GraphsManager.hpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     target_link_options(AIZO_C++ PRIVATE
