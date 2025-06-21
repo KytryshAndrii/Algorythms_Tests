@@ -28,7 +28,12 @@ add_executable(AIZO_C++
         src/GraphsAlgorithms/MSTProblem/KruskalMatrix.hpp
         src/GraphsAlgorithms/MSTProblem/PrimList.hpp
         src/GraphsAlgorithms/MSTProblem/PrimMatrix.hpp
-        src/common/UnionJoinSet.hpp)
+        src/common/UnionJoinSet.hpp
+        src/GraphsAlgorithms/TSPProblem/DijkstraList.hpp
+        src/GraphsAlgorithms/TSPProblem/DijkstraMatrix.hpp
+        src/HeapImpl/MinHeap.hpp
+        src/GraphsAlgorithms/TSPProblem/FordBellmanMatrix.hpp
+        src/GraphsAlgorithms/TSPProblem/FordBellmanList.hpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     target_link_options(AIZO_C++ PRIVATE

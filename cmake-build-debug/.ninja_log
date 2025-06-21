@@ -1,8 +1,6 @@
 # ninja log v6
 7	1338	7687234098404813	CMakeFiles/AIZO_C++.dir/src/Timer/Timer.cpp.obj	7abfef9f958e2e16
 4	43	7687362091517166	CMakeFiles/AIZO_C++.dir/main.cpp.obj	2e0b2f01ef7e268c
-522	856	7721314527955963	AIZO_C++.exe	b50340f7e3abfaf1
-4	521	7721314522765982	CMakeFiles/AIZO_C++.dir/testMSTiSHORTPASS.cpp.obj	ded95940ba0d528b
-3	784	7721444686777654	CMakeFiles/AIZO_C++.dir/test.cpp.obj	1e8d2dc1a47f9bcf
-4	694	7721482430678113	CMakeFiles/AIZO_C++.dir/test.cpp.obj	1e8d2dc1a47f9bcf
 694	1125	7721482437568142	AIZO_C++.exe	a0573c51d1d17f9c
+4	521	7721314522765982	CMakeFiles/AIZO_C++.dir/testMSTiSHORTPASS.cpp.obj	ded95940ba0d528b
+4	694	7721482430678113	CMakeFiles/AIZO_C++.dir/test.cpp.obj	1e8d2dc1a47f9bcf
