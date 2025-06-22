@@ -3,7 +3,8 @@
 
 enum GraphRepresentingShape {
     LIST,
-    MATRIX
+    MATRIX,
+    BOTH
 };
 
 #endif

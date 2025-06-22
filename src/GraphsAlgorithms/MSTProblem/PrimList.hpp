@@ -2,7 +2,7 @@
 #define PRIM_LIST_HPP
 
 #include "../../GraphsImpl/GraphList.hpp"
-#include "../../common/EdgeTripple.hpp"
+#include "../../common/EdgeTriple.hpp"
 #include "../../VektorImpl/Vektor.hpp"
 #include <iostream>
 #include <limits>

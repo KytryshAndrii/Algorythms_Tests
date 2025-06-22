@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "../../VektorImpl/Vektor.hpp"
-#include "../../common/EdgeTripple.hpp"
+#include "../../common/EdgeTriple.hpp"
 #include "../../GraphsImpl/GraphMatrix.hpp"
 
 class FordBellmanMatrix {

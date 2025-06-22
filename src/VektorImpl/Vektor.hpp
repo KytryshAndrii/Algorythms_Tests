@@ -2,6 +2,7 @@
 #define VEKTOR_H
 
 #include <stdexcept>
+#include <algorithm>
 
 template <typename T>
 class Vektor {
@@ -13,17 +14,30 @@ public:
     ~Vektor();
 
     void push_back(const T& value);
+    void insertEnd(const T* first, const T* last);
+
     int size() const;
+    bool empty() const;
+
     void removeAt(int index);
     T& operator[](int index);
     const T& operator[](int index) const;
+
+    // Iterator support
+    T* begin();
+    T* end();
+    const T* begin() const;
+    const T* end() const;
 
 private:
     T* data;
     int capacity;
     int count;
+
     void resize(int newCapacity);
 };
+
+// --- Implementation ---
 
 template <typename T>
 Vektor<T>::Vektor() : capacity(10), count(0) {
@@ -38,7 +52,6 @@ Vektor<T>::Vektor(int initialSize)
         data[i] = T();
     }
 }
-
 
 template <typename T>
 Vektor<T>::Vektor(const Vektor<T>& other)
@@ -74,6 +87,11 @@ int Vektor<T>::size() const {
 }
 
 template <typename T>
+bool Vektor<T>::empty() const {
+    return count == 0;
+}
+
+template <typename T>
 T& Vektor<T>::operator[](int index) {
     if (index < 0 || index >= count)
         throw std::out_of_range("Index out of range");
@@ -104,6 +122,7 @@ void Vektor<T>::resize(int newCapacity) {
     }
     delete[] data;
     data = newData;
+    capacity = newCapacity;
 }
 
 template <typename T>
@@ -116,5 +135,38 @@ void Vektor<T>::removeAt(int index) {
     --count;
 }
 
+// --- Iterator methods ---
+
+template <typename T>
+T* Vektor<T>::begin() {
+    return data;
+}
+
+template <typename T>
+T* Vektor<T>::end() {
+    return data + count;
+}
+
+template <typename T>
+const T* Vektor<T>::begin() const {
+    return data;
+}
+
+template <typename T>
+const T* Vektor<T>::end() const {
+    return data + count;
+}
+
+// --- Bulk insert ---
+
+template <typename T>
+void Vektor<T>::insertEnd(const T* first, const T* last) {
+    int insertCount = static_cast<int>(last - first);
+    if (count + insertCount > capacity)
+        resize((count + insertCount) * 2);
+
+    std::copy(first, last, data + count);
+    count += insertCount;
+}
 
 #endif

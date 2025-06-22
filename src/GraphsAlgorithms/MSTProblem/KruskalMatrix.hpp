@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "../../common/EdgeTripple.hpp"
+#include "../../common/EdgeTriple.hpp"
 #include "../../GraphsImpl/GraphMatrix.hpp"
 #include "../../VektorImpl/Vektor.hpp"
 #include "../../common/UnionJoinSet.hpp"

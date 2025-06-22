@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <ctime>
 
-#include "../common/EdgeTripple.hpp"
+#include "../common/EdgeTriple.hpp"
 #include "../VektorImpl/Vektor.hpp"
 #include "../common/GraphFactory.hpp"
 #include "../common/GraphRepresentingShape.hpp"

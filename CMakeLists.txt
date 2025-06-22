@@ -4,8 +4,7 @@ project(AIZO_C++)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(AIZO_C++
-#        main.cpp
-        test.cpp
+        main.cpp
         src/Timer/Timer.cpp
         src/Timer/Timer.hpp
         src/FileIO/FileIO.hpp
@@ -23,7 +22,7 @@ add_executable(AIZO_C++
         src/GraphsImpl/IGraph.hpp
         src/RandomGenerator/RandomGraphGenerator.hpp
         src/common/GraphFactory.hpp
-        src/common/EdgeTripple.hpp
+        src/common/EdgeTriple.hpp
         src/GraphsAlgorithms/MSTProblem/KruskalList.hpp
         src/GraphsAlgorithms/MSTProblem/KruskalMatrix.hpp
         src/GraphsAlgorithms/MSTProblem/PrimList.hpp

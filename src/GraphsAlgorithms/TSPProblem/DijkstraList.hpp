@@ -2,7 +2,7 @@
 #define DIJKSTRA_LIST_HPP
 
 #include "../../GraphsImpl/GraphList.hpp"
-#include "../../common/EdgeTripple.hpp"
+#include "../../common/EdgeTriple.hpp"
 #include "../../VektorImpl/Vektor.hpp"
 #include <limits>
 #include <queue>

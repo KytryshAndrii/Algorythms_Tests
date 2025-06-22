@@ -2,7 +2,7 @@
 #define PRIM_MATRIX_HPP
 
 #include "../../GraphsImpl/GraphMatrix.hpp"
-#include "../../common/EdgeTripple.hpp"
+#include "../../common/EdgeTriple.hpp"
 #include "../../VektorImpl/Vektor.hpp"
 #include <iostream>
 #include <limits>

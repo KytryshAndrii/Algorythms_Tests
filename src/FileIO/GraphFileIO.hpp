@@ -116,17 +116,26 @@ public:
        const GraphRepresentingShape& graphType,
        int vertexCount,
        int edgeCount,
+       double density,
        int repetitions,
        int minTimeMs,
        int maxTimeMs,
        double avgTimeMs,
        double medianTimeMs
    ) {
-        create_directories(std::filesystem::path(summaryFile).parent_path());
+        std::filesystem::path parentDir = std::filesystem::path(summaryFile).parent_path();
+        if (!parentDir.empty() && !std::filesystem::exists(parentDir)) {
+            std::error_code ec;
+            if (!std::filesystem::create_directories(parentDir, ec)) {
+                std::cerr << "[ERROR] Cannot create directory: " << parentDir << " — " << ec.message() << std::endl;
+                return;
+            }
+        }
 
+        // Spróbuj otworzyć plik
         std::ofstream ofs(summaryFile, std::ios::app);
-        if (!ofs) {
-            std::cerr << "[ERROR] Cannot open history file: " << summaryFile << std::endl;
+        if (!ofs.is_open()) {
+            std::cerr << "[ERROR] Cannot open summary file: " << summaryFile << std::endl;
             return;
         }
 
@@ -137,6 +146,7 @@ public:
             << graphTypeStr << ';'
             << vertexCount << ';'
             << edgeCount << ';'
+            << density << ';'
             << repetitions << ';'
             << minTimeMs << ';'
             << maxTimeMs << ';'
