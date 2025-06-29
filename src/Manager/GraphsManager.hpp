@@ -33,7 +33,7 @@ public:
 
         std::cout << "[INFO] Chosen problem: " << getProblemDisplayName(problemFlag) << std::endl;
         std::cout << "[INFO] Chosen algorithm: " << getAlgorithmDisplayName(algorithmFlag) << std::endl;
-        std::cout << "[INFO] Graph representation: " << shapeFlag << std::endl;
+        std::cout << "[INFO] Graph representation: " << getShapeshapeFlag << std::endl;
 
         const std::string timestamp = getCurrentTimestamp();
         dispatchProblemByShapeFile(problemFlag, algorithmFlag, src, dst, shape, inputFile, outputFile, timestamp);

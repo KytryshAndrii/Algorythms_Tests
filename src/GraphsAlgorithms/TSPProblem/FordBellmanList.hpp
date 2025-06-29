@@ -70,7 +70,7 @@ public:
     static void displayShortestPaths(const Vektor<EdgeTriple>& paths, int source) {
         std::cout << "Ford-Bellman (List) shortest paths from source " << source << ":\n";
         for (int i = 0; i < paths.size(); ++i) {
-            std::cout << paths[i].from << " -> " << paths[i].to << " [dist=" << paths[i].weight << "]\n";
+            std::cout << paths[i].from << " -> " << paths[i].to << " [weight=" << paths[i].weight << "]\n";
         }
     }
 

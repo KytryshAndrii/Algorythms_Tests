@@ -52,7 +52,7 @@ public:
         int total = 0;
         std::cout << "MST edges (PrimMatrix):\n";
         for (int i = 0; i < mst.size(); ++i) {
-            std::cout << mst[i].from << " -- " << mst[i].to << " [w=" << mst[i].weight << "]\n";
+            std::cout << mst[i].from << " -- " << mst[i].to << " [weight=" << mst[i].weight << "]\n";
             total += mst[i].weight;
         }
         std::cout << "Total MST weight: " << total << "\n";

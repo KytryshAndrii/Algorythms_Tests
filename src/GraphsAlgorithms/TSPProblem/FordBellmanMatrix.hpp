@@ -80,7 +80,7 @@ public:
         std::cout << "Ford-Bellman (Matrix) shortest paths from source " << source << ":\n";
         for (int i = 0; i < paths.size(); ++i) {
             std::cout << paths[i].from << " -> " << paths[i].to
-                      << " [dist=" << paths[i].weight << "]\n";
+                      << " [weight=" << paths[i].weight << "]\n";
         }
     }
 

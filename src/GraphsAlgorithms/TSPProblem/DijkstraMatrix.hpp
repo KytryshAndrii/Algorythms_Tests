@@ -72,7 +72,7 @@ public:
         std::cout << "Dijkstra (Matrix) shortest paths from source " << source << ":\n";
         for (int i = 0; i < result.size(); ++i) {
             std::cout << result[i].from << " -> " << result[i].to
-                      << " [dist=" << result[i].weight << "]\n";
+                      << " [weight=" << result[i].weight << "]\n";
         }
     }
 
