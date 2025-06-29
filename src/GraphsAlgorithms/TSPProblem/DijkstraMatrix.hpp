@@ -68,12 +68,15 @@ public:
     /**
      * Displays all shortest paths computed using Dijkstra's algorithm.
      */
-    static void displayShortestPaths(const Vektor<EdgeTriple>& result,  int source) {
+    static void displayShortestPaths(const Vektor<EdgeTriple>& paths,  int source) {
+        int total = 0;
         std::cout << "Dijkstra (Matrix) shortest paths from source " << source << ":\n";
-        for (int i = 0; i < result.size(); ++i) {
-            std::cout << result[i].from << " -> " << result[i].to
-                      << " [weight=" << result[i].weight << "]\n";
+        for (int i = paths.size() - 1; i >= 0; --i) {
+            const auto&[from, to, weight] = paths[i];
+            std::cout << from << " -> " << to << " [weight=" << weight << "]\n";
+            total += weight;
         }
+        std::cout << "Total Path weight: " << total << "\n";
     }
 
 private:

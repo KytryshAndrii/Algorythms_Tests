@@ -71,10 +71,14 @@ public:
      * Displays all shortest paths from the given source vertex.
      */
     static void displayShortestPaths(const Vektor<EdgeTriple>& paths, int source) {
+        int total = 0;
         std::cout << "Dijkstra (List) shortest paths from source " << source << ":\n";
-        for (int i = 0; i < paths.size(); ++i) {
-            std::cout << paths[i].from << " -> " << paths[i].to << " [weight=" << paths[i].weight << "]\n";
+        for (int i = paths.size() - 1; i >= 0; --i) {
+            const auto&[from, to, weight] = paths[i];
+            std::cout << from << " -> " << to << " [weight=" << weight << "]\n";
+            total += weight;
         }
+        std::cout << "Total Path weight: " << total << "\n";
     }
 
 private:

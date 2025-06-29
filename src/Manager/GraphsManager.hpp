@@ -33,7 +33,7 @@ public:
 
         std::cout << "[INFO] Chosen problem: " << getProblemDisplayName(problemFlag) << std::endl;
         std::cout << "[INFO] Chosen algorithm: " << getAlgorithmDisplayName(algorithmFlag) << std::endl;
-        std::cout << "[INFO] Graph representation: " << getShapeshapeFlag << std::endl;
+        std::cout << "[INFO] Graph representation: " << getShapeDisplayName(shapeFlag) << std::endl;
 
         const std::string timestamp = getCurrentTimestamp();
         dispatchProblemByShapeFile(problemFlag, algorithmFlag, src, dst, shape, inputFile, outputFile, timestamp);
@@ -47,7 +47,7 @@ public:
         std::cout << "[INFO] BENCHMARK MODE STARTED" << std::endl;
         std::cout << "[INFO] Chosen problem: " << getProblemDisplayName(problemFlag) << std::endl;
         std::cout << "[INFO] Chosen algorithm: " << getAlgorithmDisplayName(algorithmFlag) << std::endl;
-        std::cout << "[INFO] Graph representation: " << shapeFlag << std::endl;
+        std::cout << "[INFO] Graph representation: " << getShapeDisplayName(shapeFlag) << std::endl;
         std::cout << "[INFO] Graph size: " << size << ", density: " << density << ", repeat count: " << repeatCount << std::endl;
 
         const std::string timestamp = getCurrentTimestamp();
@@ -126,7 +126,7 @@ private:
             if (std::strcmp(problem, "--mst") == 0)
                 execTimes = dispatchMST(algorithm, shape, baseGraph, outputFile, timestamp);
             else if (std::strcmp(problem, "--tsp") == 0)
-                execTimes = dispatchTSP(0, 1, algorithm, shape, baseGraph, outputFile, timestamp);
+                execTimes = dispatchTSP(0, -1, algorithm, shape, baseGraph, outputFile, timestamp);
             else
                 std::cerr << "[ERROR] Unknown problem type: " << problem << std::endl;
 
@@ -152,7 +152,7 @@ private:
                 size,
                 maxPossibleEdges,
                 density,
-                allTimes.size(),
+                repeatCount,
                 minTime,
                 maxTime,
                 avgTime,
@@ -326,6 +326,19 @@ private:
             return MATRIX;
         if (std::strcmp(shapeStr, "--all") == 0)
             return BOTH;
+
+        std::cerr << "[ERROR] Unknown shape flag: " << shapeStr << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+
+    /// Helper: returns 'List' or 'Matrix' based on shape flag string.
+    static const char* getShapeDisplayName(const char* shapeStr) {
+        if (std::strcmp(shapeStr, "--list") == 0)
+            return "List";
+        if (std::strcmp(shapeStr,"--matrix") == 0)
+            return "Matrix";
+        if (std::strcmp(shapeStr, "--all") == 0)
+            return "Both List and Matrix Representations";
 
         std::cerr << "[ERROR] Unknown shape flag: " << shapeStr << std::endl;
         std::exit(EXIT_FAILURE);

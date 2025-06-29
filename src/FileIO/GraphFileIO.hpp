@@ -83,8 +83,6 @@ public:
         const std::string& resultPath,
         const std::string& resultValue
     ) {
-        create_directories(std::filesystem::path(filename).parent_path());
-
         std::ofstream ofs(filename, std::ios::app);
         if (!ofs) {
             std::cerr << "[ERROR] Cannot open history file: " << filename << std::endl;
@@ -123,15 +121,6 @@ public:
        double avgTimeMs,
        double medianTimeMs
    ) {
-        std::filesystem::path parentDir = std::filesystem::path(summaryFile).parent_path();
-        if (!parentDir.empty() && !std::filesystem::exists(parentDir)) {
-            std::error_code ec;
-            if (!std::filesystem::create_directories(parentDir, ec)) {
-                std::cerr << "[ERROR] Cannot create directory: " << parentDir << " — " << ec.message() << std::endl;
-                return;
-            }
-        }
-
         // Spróbuj otworzyć plik
         std::ofstream ofs(summaryFile, std::ios::app);
         if (!ofs.is_open()) {

@@ -195,18 +195,61 @@ int main(int argc, char* argv[]) {
         const char* problemFlag   = argv[2];
         const char* algorithmFlag = argv[3];
         const char* shapeFlag     = argv[4];
-        std::string inputFile     = argv[5];
-        const char* outputFile2   = (argc >= 7 ? argv[6] : "");
+        const std::string inputFile     = argv[5];
+
+        const int difference = argc - 6;
+        const char* outputFile = "";
         int src = 0, dst = -1;
+
         if (std::strcmp(problemFlag, "--tsp") == 0) {
-            if (argc >= 8) src = std::atoi(argv[7]);
-            if (argc >= 9) dst = std::atoi(argv[8]);
+            // for TSP, you may supply:
+            //   - nothing (rem==0)
+            //   - just outputFile       (rem==1)
+            //   - src and dst           (rem==2)
+            //   - outputFile, src, dst  (rem==3)
+            if (difference == 1) {
+                outputFile = argv[6];
+            }
+            else if (difference == 2) {
+                src = std::atoi(argv[6]);
+                dst = std::atoi(argv[7]);
+            }
+            else if (difference == 3) {
+                outputFile = argv[6];
+                src        = std::atoi(argv[7]);
+                dst        = std::atoi(argv[8]);
+            }
+            else if (difference != 0) {
+                std::cerr << "[ERROR] Invalid number of arguments for --gFile with --tsp." << std::endl;
+                HelpMessage::printHelp();
+                return 1;
+            }
+            if ((difference == 2 || difference == 3) && dst < 0) {
+                std::cerr << "[ERROR] Both source and destination vertices must be specified for --tsp." << std::endl;
+                HelpMessage::printHelp();
+                return 1;
+            }
         }
-        GraphsManager::fileInputMode(problemFlag, algorithmFlag, shapeFlag, inputFile, outputFile2, src, dst);
+        else {
+            if (difference > 1) {
+                std::cerr << "[ERROR] Too many arguments for --gFile with --mst." << std::endl;
+                HelpMessage::printHelp();
+                return 1;
+            }
+            if (difference == 1) {
+                outputFile = argv[6];
+            }
+        }
+        GraphsManager::fileInputMode(problemFlag, algorithmFlag, shapeFlag, inputFile, outputFile, src, dst);
     }
     else if (mode == "--gBenchmark") {
         if (argc < 8) {
             std::cerr << "[ERROR] Not enough arguments for --gBenchmark mode." << std::endl;
+            HelpMessage::printHelp();
+            return 1;
+        }
+        if (argc > 9) {
+            std::cerr << "[ERROR] A lot of arguments for --gBenchmark mode." << std::endl;
             HelpMessage::printHelp();
             return 1;
         }
@@ -216,7 +259,7 @@ int main(int argc, char* argv[]) {
         int verticesCount         = std::atoi(argv[5]);
         double density            = std::atof(argv[6]);
         int repeatCount4          = std::atoi(argv[7]);
-        const char* outputFile4   = (argc >= 9 ? argv[8] : "");
+        const char* outputFile4   = argv[8];
         GraphsManager::benchmarkMode(problemFlag, algorithmFlag, shapeFlag,
                                      verticesCount, density, repeatCount4, outputFile4);
     }
